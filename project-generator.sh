@@ -50,18 +50,37 @@ app.listen(port, () => {
 "
 }
 
+twTemplate(){
+echo "
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/dist/output.css" rel="stylesheet">
+</head>
+<body>
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
+</body>
+</html>
+"
+}
+
 # main 
 
 echo "PROJECT GENERATOR StingakEduOS V1.0"
 echo "===================================="
 
-echo "1. Laravel"
+echo "1. Laravel 9 via Composer"
 echo "2. React"
 echo "3. Express"
 echo "4. Next JS"
 echo "5. TailwindCSS Starter Project"
 echo "6. BootstrapCSS Starter Project"
 
+echo "===================================="
 read -p "Pilih Project: " PILIH_PROJECT 
 clear
 read -p "Nama Project: " NAMA_PROJECT
@@ -75,7 +94,16 @@ read -p "Pilih Directory Tempat Project Tersimpan: " NAMA_DIRECTORY
 
 if (($PILIH_PROJECT == 1));
 then 
-    echo "Project Laravel"
+
+    cd $NAMA_DIRECTORY
+
+    composer create-project laravel/laravel $NAMA_PROJECT
+
+    cd $NAMA_PROJECT
+
+    code .
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://laravel.com/docs/9.x"
 elif (($PILIH_PROJECT == 2)); 
 then 
     cd $NAMA_DIRECTORY
@@ -85,6 +113,8 @@ then
     cd $NAMA_PROJECT
 
     code .
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://reactjs.org/docs/getting-started.html"
 elif (($PILIH_PROJECT == 3));
 then 
     cd $NAMA_DIRECTORY
@@ -113,7 +143,10 @@ then
         npm install express
 
         code .
+        
     fi
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://expressjs.com/"
 elif (($PILIH_PROJECT == 4));
 then 
     cd $NAMA_DIRECTORY
@@ -123,9 +156,43 @@ then
     cd $NAMA_PROJECT
 
     code .
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://nextjs.org/"
 elif (($PILIH_PROJECT == 5));
 then 
-    echo "Project Tailwind"
+    cd $NAMA_DIRECTORY
+
+    mkdir $NAMA_PROJECT
+    cd $NAMA_PROJECT
+
+    npm init -y 
+    npm install -D tailwindcss
+    npx tailwindcss init
+
+
+    # starter dir
+    mkdir public src
+
+    # starter file
+    touch index.html 
+    touch src/input.css
+
+    # add this to input.css
+echo "
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+" > src/input.css
+
+    # add starter to index.html
+    twTemplate > index.html
+
+    clear
+
+    code .
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://tailwindcss.com/"
+
 elif (($PILIH_PROJECT == 6));
 then 
     cd $NAMA_DIRECTORY
@@ -138,6 +205,8 @@ then
     bsTemplate > index.html
 
     code .
+    clear
+    echo "Happy Coding! Silahkan baca dokumentasi lengkap di https://getbootstrap.com/docs/5.0/getting-started/introduction/"
 fi
 
 
